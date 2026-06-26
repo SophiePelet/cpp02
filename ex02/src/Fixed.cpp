@@ -6,7 +6,7 @@
 /*   By: sophie <sophie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/26 19:16:43 by sophie           ###   ########.fr       */
+/*   Updated: 2026/06/26 21:05:03 by sophie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,65 @@ std::ostream&	operator<<(std::ostream& stream, const Fixed& instance) {
 	return (stream);
 }
 
+// Overloading comparison operators
+bool	Fixed::operator>(const Fixed& instance) const { return (this->getRawBits() > instance.getRawBits()); }
+bool	Fixed::operator<(const Fixed& instance) const { return (this->getRawBits() < instance.getRawBits()); }
+bool	Fixed::operator>=(const Fixed& instance) const { return (this->getRawBits() >= instance.getRawBits()); }
+bool	Fixed::operator<=(const Fixed& instance) const { return (this->getRawBits() <= instance.getRawBits()); }
+bool	Fixed::operator==(const Fixed& instance) const { return (this->getRawBits() == instance.getRawBits()); }
+bool	Fixed::operator!=(const Fixed& instance) const { return (this->getRawBits() != instance.getRawBits()); }
+
+// Overloading arithmetic operators
+Fixed	Fixed::operator+(const Fixed& instance) { return (this->getRawBits() + instance.getRawBits()); }
+Fixed	Fixed::operator-(const Fixed& instance) { return (this->getRawBits() - instance.getRawBits()); }
+Fixed	Fixed::operator*(const Fixed& instance) { return (this->getRawBits() * instance.getRawBits()); }
+Fixed	Fixed::operator/(const Fixed& instance) { return (this->getRawBits() / instance.getRawBits()); }
+
+// Overloading pre-increment/pre-decrement
+Fixed&	Fixed::operator++() {
+	this->setRawBits(this->getRawBits() + 1);
+	return (*this);
+}
+Fixed&	Fixed::operator--() {
+	this->setRawBits(this->getRawBits() - 1);
+	return (*this);
+}
+
+// Overloading post-increment/post-decrement
+Fixed	Fixed::operator++(int) {
+	Fixed	temp(*this);
+	++(*this);
+	return (temp);
+}
+Fixed	Fixed::operator--(int) {
+	Fixed	temp(*this);
+	--(*this);
+	return (temp);
+}
+
+// Comparison functions
+Fixed& Fixed::min(Fixed& n1, Fixed& n2) {
+	if (n1 < n2)
+		return (n1);
+	else
+		return (n2);
+}
+Fixed& Fixed::max(Fixed& n1, Fixed& n2) {
+	if (n1 > n2)
+		return (n1);
+	else
+		return (n2);
+}
+const Fixed&	Fixed::min(const Fixed& n1,const Fixed& n2) {
+	if (n1 < n2)
+		return (n1);
+	else
+		return (n2);
+}
+const Fixed& Fixed::max(const	Fixed& n1, const Fixed& n2)
+{
+	if (n1 > n2)
+		return (n1);
+	else
+		return (n2);
+}

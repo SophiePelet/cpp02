@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/27 16:38:42 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/06/27 17:46:56 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,20 @@ bool	Fixed::operator==(const Fixed& instance) const { return (this->getRawBits()
 bool	Fixed::operator!=(const Fixed& instance) const { return (this->getRawBits() != instance.getRawBits()); }
 
 // Overloading arithmetic operators
-Fixed	Fixed::operator+(const Fixed& instance) { 
+Fixed	Fixed::operator+(const Fixed& instance) const { 
 	Fixed	result;
 	result.setRawBits(this->getRawBits() + instance.getRawBits());
 	return (result);
 }
-Fixed	Fixed::operator-(const Fixed& instance) { 
+Fixed	Fixed::operator-(const Fixed& instance) const { 
 	Fixed	result;
 	result.setRawBits(this->getRawBits() - instance.getRawBits());
 	return (result);
 }
-Fixed	Fixed::operator*(const Fixed& instance) {
+Fixed	Fixed::operator*(const Fixed& instance) const {
 	return (Fixed(this->toFloat() * instance.toFloat()));
 }
-Fixed	Fixed::operator/(const Fixed& instance) {
+Fixed	Fixed::operator/(const Fixed& instance) const {
 	if (instance.getRawBits() == 0) {
 		std::cout << "Cannot divide by 0\n";
 		return (Fixed(0));

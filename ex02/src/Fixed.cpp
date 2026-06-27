@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sophie <sophie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/26 21:05:03 by sophie           ###   ########.fr       */
+/*   Updated: 2026/06/27 15:25:53 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 // Constructors/destructors, copy constructor and copy assignment operator
-Fixed::Fixed() : _fixedPoint(0) { std::cout << "Default constructor called\n"; }
+Fixed::Fixed() : _fixedPoint(0) {
+}
 /*
 	shifts all the int bits to the left by 8 postions, to convert it to a
 	fixed-point configuration
 	the last 8 bits will then be decimal
 */
-Fixed::Fixed(const int nb) : _fixedPoint(nb << _bits) { std::cout << "Int constructor called\n"; }
+Fixed::Fixed(const int nb) : _fixedPoint(nb << _bits) {
+}
 /*
 	cannot use bitwise shift operators on floating-point numbers in C++
 	mutiply by 256 instead
@@ -27,28 +29,20 @@ Fixed::Fixed(const int nb) : _fixedPoint(nb << _bits) { std::cout << "Int constr
 	`* 256` is a "packing" operation, it shifts the fractional part into the int area so they
 	aren't lost when save into a standard `int`
 */
-Fixed::Fixed(const float nb) : _fixedPoint(roundf(nb * 256)) { std::cout << "Float constructor called\n"; }
-Fixed::~Fixed() { std::cout << "Destructor called\n"; }
-Fixed::Fixed(const Fixed& other) {
-	std::cout << "Copy constructor called\n";
-	this->_fixedPoint = other.getRawBits();
+Fixed::Fixed(const float nb) : _fixedPoint(roundf(nb * 256)) {
 }
+Fixed::~Fixed() {
+}
+Fixed::Fixed(const Fixed& other) { this->_fixedPoint = other.getRawBits(); }
 Fixed &Fixed::operator=(const Fixed& other) {
-	std::cout << "Copy assignment operator called\n";
 	if (this != &other)
 		this->_fixedPoint = other.getRawBits();
 	return (*this);
 }
 
 // Getter and setter functions
-int	Fixed::getRawBits() const {
-	std::cout << "getRawBits member function called\n";
-	return (this->_fixedPoint);
-}
-void	Fixed::setRawBits(int const raw) {
-	std::cout << "setRawBits member function called\n";
-	this->_fixedPoint = raw;
-}
+int	Fixed::getRawBits() const { return (this->_fixedPoint); }
+void	Fixed::setRawBits(int const raw) { this->_fixedPoint = raw; }
 
 // Conversion functions
 float	Fixed::toFloat(void) const { return ((float)_fixedPoint / 256); }
@@ -74,10 +68,40 @@ bool	Fixed::operator==(const Fixed& instance) const { return (this->getRawBits()
 bool	Fixed::operator!=(const Fixed& instance) const { return (this->getRawBits() != instance.getRawBits()); }
 
 // Overloading arithmetic operators
-Fixed	Fixed::operator+(const Fixed& instance) { return (this->getRawBits() + instance.getRawBits()); }
-Fixed	Fixed::operator-(const Fixed& instance) { return (this->getRawBits() - instance.getRawBits()); }
-Fixed	Fixed::operator*(const Fixed& instance) { return (this->getRawBits() * instance.getRawBits()); }
-Fixed	Fixed::operator/(const Fixed& instance) { return (this->getRawBits() / instance.getRawBits()); }
+Fixed	Fixed::operator+(const Fixed& instance) { 
+	Fixed	result;
+	result.setRawBits(this->getRawBits() + instance.getRawBits());
+	return (result);
+}
+Fixed	Fixed::operator-(const Fixed& instance) { 
+	Fixed	result;
+	result.setRawBits(this->getRawBits() - instance.getRawBits());
+	return (result);
+}
+/* 
+	Needs to divide the result byt 256 (or right shift by `_bits`) to bring back
+	a standard fixed-point
+*/
+Fixed	Fixed::operator*(const Fixed& instance) {
+	Fixed	result;
+	long long	product = (long long)this->getRawBits() * instance.getRawBits();
+	result.setRawBits(product >> _bits);
+	return (result);
+}
+/*
+	The scaling factor is cancelled by the division (256/256 = 1)
+	Needs to multiply the numerator by 256 (or shift left by _bits) before the division
+*/
+Fixed	Fixed::operator/(const Fixed& instance) {
+	Fixed	result;
+	if (instance.getRawBits() == 0) {
+		std::cout << "Cannot divide by 0\n";
+		return (result);
+	}
+	long long	numerator = (long long)this->getRawBits() << _bits;
+	result.setRawBits(numerator / instance.getRawBits());
+	return (result);
+}
 
 // Overloading pre-increment/pre-decrement
 Fixed&	Fixed::operator++() {

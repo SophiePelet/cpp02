@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 15:33:31 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/27 17:25:54 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/06/27 18:03:45 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ class	Point {
 	const Fixed	_y;
 };
 
-bool	bsp(Point const a, Point const b, Point const Point);
+bool	bsp(Point const a, Point const b, Point const c, Point const Point);
 
 #endif

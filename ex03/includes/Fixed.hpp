@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:13:54 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/27 16:26:04 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/06/27 17:40:15 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ class	Fixed	{
 	bool	operator!=(const Fixed& instance) const;
 
 	// Overloading arithmetic operators
-	Fixed	operator+(const Fixed& instance);
-	Fixed	operator-(const Fixed& instance);
-	Fixed	operator*(const Fixed& instance);
-	Fixed	operator/(const Fixed& instance);
+	Fixed	operator+(const Fixed& instance) const;
+	Fixed	operator-(const Fixed& instance) const;
+	Fixed	operator*(const Fixed& instance) const;
+	Fixed	operator/(const Fixed& instance) const;
 
 	// Overloading pre-increment/pre-decrement
 	Fixed&	operator++();

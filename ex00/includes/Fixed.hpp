@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sophie <sophie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 14:33:33 by sophie            #+#    #+#             */
-/*   Updated: 2026/06/20 14:55:10 by sophie           ###   ########.fr       */
+/*   Updated: 2026/06/27 16:25:13 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef FIXED_HPP
+#define FIXED_HPP
 
 #include <iostream>
 
@@ -28,3 +31,5 @@ class Fixed {
 	int _fixedPoint;
 	static const int _bits=8;
 };
+
+#endif

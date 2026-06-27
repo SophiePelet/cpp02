@@ -6,9 +6,12 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:13:54 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/25 14:09:05 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:25:29 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef FIXED_HPP
+#define FIXED_HPP
 
 #include <cmath>
 #include <iostream>
@@ -38,3 +41,5 @@ class	Fixed	{
 /******************************* Global functions ***************************/
 
 std::ostream& operator<<(std::ostream& stream, const Fixed& instance);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/27 15:25:53 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:38:42 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,15 @@ Fixed	Fixed::operator-(const Fixed& instance) {
 	result.setRawBits(this->getRawBits() - instance.getRawBits());
 	return (result);
 }
-/* 
-	Needs to divide the result byt 256 (or right shift by `_bits`) to bring back
-	a standard fixed-point
-*/
 Fixed	Fixed::operator*(const Fixed& instance) {
-	Fixed	result;
-	long long	product = (long long)this->getRawBits() * instance.getRawBits();
-	result.setRawBits(product >> _bits);
-	return (result);
+	return (Fixed(this->toFloat() * instance.toFloat()));
 }
-/*
-	The scaling factor is cancelled by the division (256/256 = 1)
-	Needs to multiply the numerator by 256 (or shift left by _bits) before the division
-*/
 Fixed	Fixed::operator/(const Fixed& instance) {
-	Fixed	result;
 	if (instance.getRawBits() == 0) {
 		std::cout << "Cannot divide by 0\n";
-		return (result);
+		return (Fixed(0));
 	}
-	long long	numerator = (long long)this->getRawBits() << _bits;
-	result.setRawBits(numerator / instance.getRawBits());
-	return (result);
+	return (Fixed(this->toFloat() / instance.toFloat()));
 }
 
 // Overloading pre-increment/pre-decrement

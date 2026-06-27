@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/27 17:37:43 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/06/27 18:09:21 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ Fixed	Fixed::operator-(const Fixed& instance) const {
 	return (result);
 }
 Fixed	Fixed::operator*(const Fixed& instance) const {
-	return (Fixed(this->getRawBits() * instance.toFloat()));
+	return (Fixed(this->toFloat() * instance.toFloat()));
 }
 Fixed	Fixed::operator/(const Fixed& instance) const {
 	if (instance.getRawBits() == 0) {

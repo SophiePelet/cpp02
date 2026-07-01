@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/06/27 17:46:56 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/07/01 12:00:55 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Fixed::Fixed(const int nb) : _fixedPoint(nb << _bits) {
 	`* 256` is a "packing" operation, it shifts the fractional part into the int area so they
 	aren't lost when save into a standard `int`
 */
-Fixed::Fixed(const float nb) : _fixedPoint(roundf(nb * 256)) {
+Fixed::Fixed(const float nb) : _fixedPoint(roundf(nb * (1 << _bits))) {
 }
 Fixed::~Fixed() {
 }
@@ -45,7 +45,7 @@ int	Fixed::getRawBits() const { return (this->_fixedPoint); }
 void	Fixed::setRawBits(int const raw) { this->_fixedPoint = raw; }
 
 // Conversion functions
-float	Fixed::toFloat(void) const { return ((float)_fixedPoint / 256); }
+float	Fixed::toFloat(void) const { return ((float)_fixedPoint / (1 << _bits)); }
 int		Fixed::toInt(void) const { return (_fixedPoint >> _bits); }
 
 /*

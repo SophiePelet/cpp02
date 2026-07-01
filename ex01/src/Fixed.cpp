@@ -6,7 +6,7 @@
 /*   By: sopelet <sopelet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 14:01:48 by sopelet           #+#    #+#             */
-/*   Updated: 2026/07/01 12:01:38 by sopelet          ###   ########.fr       */
+/*   Updated: 2026/07/01 14:14:19 by sopelet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Fixed::Fixed(const int nb) : _fixedPoint(nb << _bits) { std::cout << "Int constr
 	`* 256` is a "packing" operation, it shifts the fractional part into the int area so they
 	aren't lost when save into a standard `int`
 */
-Fixed::Fixed(const float nb) : _fixedPoint(roundf(nb * (1 << 256))) { std::cout << "Float constructor called\n"; }
+Fixed::Fixed(const float nb) : _fixedPoint(roundf(nb * (1 << _bits))) { std::cout << "Float constructor called\n"; }
 Fixed::~Fixed() { std::cout << "Destructor called\n"; }
 
 Fixed::Fixed(const Fixed& other) {
@@ -52,7 +52,7 @@ void	Fixed::setRawBits(int const raw) {
 	this->_fixedPoint = raw;
 }
 
-float	Fixed::toFloat(void) const { return ((float)_fixedPoint / (1 << 256)); }
+float	Fixed::toFloat(void) const { return ((float)_fixedPoint / (1 << _bits)); }
 
 int		Fixed::toInt(void) const { return (_fixedPoint >> _bits); }
 
